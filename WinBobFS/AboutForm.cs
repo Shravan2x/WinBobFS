@@ -8,6 +8,7 @@ namespace WinBobFS
         public AboutForm()
         {
             InitializeComponent();
+            VersionLabel.Text = $"WinBobFS {Program.VersionName}";
         }
 
         private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
