@@ -73,6 +73,14 @@
             this.InfoButton = new System.Windows.Forms.Button();
             this.ControlImages16 = new System.Windows.Forms.ImageList(this.components);
             this.ExplorerTreeImages16 = new System.Windows.Forms.ImageList(this.components);
+            this.CompactToolTip = new System.Windows.Forms.ToolTip(this.components);
+            this.OpenToolTip = new System.Windows.Forms.ToolTip(this.components);
+            this.SaveToolTip = new System.Windows.Forms.ToolTip(this.components);
+            this.NewFileToolTip = new System.Windows.Forms.ToolTip(this.components);
+            this.NewDirectoryToolTip = new System.Windows.Forms.ToolTip(this.components);
+            this.ImportToolTip = new System.Windows.Forms.ToolTip(this.components);
+            this.ExportToolTip = new System.Windows.Forms.ToolTip(this.components);
+            this.NewToolTip = new System.Windows.Forms.ToolTip(this.components);
             this.StatusStrip.SuspendLayout();
             this.MenuStrip.SuspendLayout();
             this.ExplorerTable.SuspendLayout();
@@ -362,6 +370,7 @@
             this.OpenButton.Size = new System.Drawing.Size(36, 36);
             this.OpenButton.TabIndex = 0;
             this.OpenButton.TabStop = false;
+            this.OpenToolTip.SetToolTip(this.OpenButton, "Open a BobFS image");
             this.OpenButton.UseVisualStyleBackColor = true;
             this.OpenButton.Click += new System.EventHandler(this.OpenButton_Click);
             // 
@@ -387,6 +396,7 @@
             this.SaveButton.Size = new System.Drawing.Size(36, 36);
             this.SaveButton.TabIndex = 10;
             this.SaveButton.TabStop = false;
+            this.SaveToolTip.SetToolTip(this.SaveButton, "Save a BobFS image");
             this.SaveButton.UseVisualStyleBackColor = true;
             this.SaveButton.Click += new System.EventHandler(this.SaveButton_Click);
             // 
@@ -410,6 +420,7 @@
             this.NewFileButton.Size = new System.Drawing.Size(36, 36);
             this.NewFileButton.TabIndex = 1;
             this.NewFileButton.TabStop = false;
+            this.NewFileToolTip.SetToolTip(this.NewFileButton, "Create a new file");
             this.NewFileButton.UseVisualStyleBackColor = true;
             this.NewFileButton.Click += new System.EventHandler(this.NewFileButton_Click);
             // 
@@ -423,6 +434,7 @@
             this.NewDirectoryButton.Size = new System.Drawing.Size(36, 36);
             this.NewDirectoryButton.TabIndex = 2;
             this.NewDirectoryButton.TabStop = false;
+            this.NewDirectoryToolTip.SetToolTip(this.NewDirectoryButton, "Create a new directory");
             this.NewDirectoryButton.UseVisualStyleBackColor = true;
             this.NewDirectoryButton.Click += new System.EventHandler(this.NewDirectoryButton_Click);
             // 
@@ -459,6 +471,7 @@
             this.ImportButton.Size = new System.Drawing.Size(36, 36);
             this.ImportButton.TabIndex = 11;
             this.ImportButton.TabStop = false;
+            this.ImportToolTip.SetToolTip(this.ImportButton, "Import files and directories to this folder");
             this.ImportButton.UseVisualStyleBackColor = true;
             this.ImportButton.Click += new System.EventHandler(this.ImportButton_Click);
             // 
@@ -472,6 +485,7 @@
             this.ExportButton.Size = new System.Drawing.Size(36, 36);
             this.ExportButton.TabIndex = 12;
             this.ExportButton.TabStop = false;
+            this.ExportToolTip.SetToolTip(this.ExportButton, "Export the selected files and directories");
             this.ExportButton.UseVisualStyleBackColor = true;
             this.ExportButton.Click += new System.EventHandler(this.ExportButton_Click);
             // 
@@ -544,6 +558,38 @@
             this.ExplorerTreeImages16.Images.SetKeyName(0, "directory.png");
             this.ExplorerTreeImages16.Images.SetKeyName(1, "file.png");
             // 
+            // CompactToolTip
+            // 
+            this.CompactToolTip.ToolTipTitle = "Compress";
+            // 
+            // OpenToolTip
+            // 
+            this.OpenToolTip.ToolTipTitle = "Open";
+            // 
+            // SaveToolTip
+            // 
+            this.SaveToolTip.ToolTipTitle = "Save";
+            // 
+            // NewFileToolTip
+            // 
+            this.NewFileToolTip.ToolTipTitle = "New file";
+            // 
+            // NewDirectoryToolTip
+            // 
+            this.NewDirectoryToolTip.ToolTipTitle = "New Directory";
+            // 
+            // ImportToolTip
+            // 
+            this.ImportToolTip.ToolTipTitle = "Import";
+            // 
+            // ExportToolTip
+            // 
+            this.ExportToolTip.ToolTipTitle = "Export";
+            // 
+            // NewToolTip
+            // 
+            this.NewToolTip.ToolTipTitle = "New";
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
@@ -612,10 +658,18 @@
         private System.Windows.Forms.ToolStripSeparator FileMenuSeparator2;
         private System.Windows.Forms.ToolStripMenuItem SaveAsMenuItem;
         private System.Windows.Forms.Button SaveButton;
+        private System.Windows.Forms.ToolTip CompactToolTip;
+        private System.Windows.Forms.ToolTip OpenToolTip;
+        private System.Windows.Forms.ToolTip SaveToolTip;
+        private System.Windows.Forms.ToolTip NewFileToolTip;
+        private System.Windows.Forms.ToolTip NewDirectoryToolTip;
         private System.Windows.Forms.Button ImportButton;
         private System.Windows.Forms.Button ExportButton;
         private System.Windows.Forms.Label Separator3;
+        private System.Windows.Forms.ToolTip ImportToolTip;
+        private System.Windows.Forms.ToolTip ExportToolTip;
         private System.Windows.Forms.Button NewButton;
+        private System.Windows.Forms.ToolTip NewToolTip;
         private System.Windows.Forms.ToolStripMenuItem NewMenuItem;
     }
 }
