@@ -34,9 +34,13 @@
             this.StatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.MenuStrip = new System.Windows.Forms.MenuStrip();
             this.FileMenu = new System.Windows.Forms.ToolStripMenuItem();
+            this.NewMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.OpenMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.FileMenuSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.CompactMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.SaveMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.SaveAsMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.FileMenuSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.ExitMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.HelpMenu = new System.Windows.Forms.ToolStripMenuItem();
             this.AboutMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -51,8 +55,10 @@
             this.ExplorerListSizeColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.ExplorerListLinksColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.ControlsPanel = new System.Windows.Forms.FlowLayoutPanel();
-            this.OpenButton = new System.Windows.Forms.Button();
+            this.NewButton = new System.Windows.Forms.Button();
             this.ControlImages = new System.Windows.Forms.ImageList(this.components);
+            this.OpenButton = new System.Windows.Forms.Button();
+            this.CompactButton = new System.Windows.Forms.Button();
             this.SaveButton = new System.Windows.Forms.Button();
             this.Separator1 = new System.Windows.Forms.Label();
             this.NewFileButton = new System.Windows.Forms.Button();
@@ -103,13 +109,24 @@
             // FileMenu
             // 
             this.FileMenu.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.NewMenuItem,
             this.OpenMenuItem,
+            this.FileMenuSeparator1,
+            this.CompactMenuItem,
             this.SaveMenuItem,
             this.SaveAsMenuItem,
+            this.FileMenuSeparator2,
             this.ExitMenuItem});
             this.FileMenu.Name = "FileMenu";
             this.FileMenu.Size = new System.Drawing.Size(50, 29);
             this.FileMenu.Text = "File";
+            // 
+            // NewMenuItem
+            // 
+            this.NewMenuItem.Name = "NewMenuItem";
+            this.NewMenuItem.Size = new System.Drawing.Size(211, 30);
+            this.NewMenuItem.Text = "New";
+            this.NewMenuItem.Click += new System.EventHandler(this.NewMenuItem_Click);
             // 
             // OpenMenuItem
             // 
@@ -117,6 +134,18 @@
             this.OpenMenuItem.Size = new System.Drawing.Size(211, 30);
             this.OpenMenuItem.Text = "Open";
             this.OpenMenuItem.Click += new System.EventHandler(this.OpenMenuItem_Click);
+            // 
+            // FileMenuSeparator1
+            // 
+            this.FileMenuSeparator1.Name = "FileMenuSeparator1";
+            this.FileMenuSeparator1.Size = new System.Drawing.Size(208, 6);
+            // 
+            // CompactMenuItem
+            // 
+            this.CompactMenuItem.Name = "CompactMenuItem";
+            this.CompactMenuItem.Size = new System.Drawing.Size(211, 30);
+            this.CompactMenuItem.Text = "Compact";
+            this.CompactMenuItem.Click += new System.EventHandler(this.CompactMenuItem_Click);
             // 
             // SaveMenuItem
             // 
@@ -132,10 +161,15 @@
             this.SaveAsMenuItem.Text = "Save As...";
             this.SaveAsMenuItem.Click += new System.EventHandler(this.SaveAsMenuItem_Click);
             // 
+            // FileMenuSeparator2
+            // 
+            this.FileMenuSeparator2.Name = "FileMenuSeparator2";
+            this.FileMenuSeparator2.Size = new System.Drawing.Size(208, 6);
+            // 
             // ExitMenuItem
             // 
             this.ExitMenuItem.Name = "ExitMenuItem";
-            this.ExitMenuItem.Size = new System.Drawing.Size(141, 30);
+            this.ExitMenuItem.Size = new System.Drawing.Size(211, 30);
             this.ExitMenuItem.Text = "Exit";
             this.ExitMenuItem.Click += new System.EventHandler(this.ExitMenuItem_Click);
             // 
@@ -265,7 +299,9 @@
             // 
             this.ControlsPanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.ExplorerTable.SetColumnSpan(this.ControlsPanel, 2);
+            this.ControlsPanel.Controls.Add(this.NewButton);
             this.ControlsPanel.Controls.Add(this.OpenButton);
+            this.ControlsPanel.Controls.Add(this.CompactButton);
             this.ControlsPanel.Controls.Add(this.SaveButton);
             this.ControlsPanel.Controls.Add(this.Separator1);
             this.ControlsPanel.Controls.Add(this.NewFileButton);
@@ -280,6 +316,20 @@
             this.ControlsPanel.Name = "ControlsPanel";
             this.ControlsPanel.Size = new System.Drawing.Size(872, 44);
             this.ControlsPanel.TabIndex = 3;
+            // 
+            // NewButton
+            // 
+            this.NewButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.NewButton.ImageIndex = 0;
+            this.NewButton.ImageList = this.ControlImages;
+            this.NewButton.Location = new System.Drawing.Point(3, 3);
+            this.NewButton.Name = "NewButton";
+            this.NewButton.Size = new System.Drawing.Size(36, 36);
+            this.NewButton.TabIndex = 14;
+            this.NewButton.TabStop = false;
+            this.NewToolTip.SetToolTip(this.NewButton, "Create a new BobFS image");
+            this.NewButton.UseVisualStyleBackColor = true;
+            this.NewButton.Click += new System.EventHandler(this.NewButton_Click);
             // 
             // ControlImages
             // 
@@ -308,6 +358,19 @@
             this.OpenButton.TabStop = false;
             this.OpenButton.UseVisualStyleBackColor = true;
             this.OpenButton.Click += new System.EventHandler(this.OpenButton_Click);
+            // 
+            // CompactButton
+            // 
+            this.CompactButton.ImageIndex = 2;
+            this.CompactButton.ImageList = this.ControlImages;
+            this.CompactButton.Location = new System.Drawing.Point(87, 3);
+            this.CompactButton.Name = "CompactButton";
+            this.CompactButton.Size = new System.Drawing.Size(36, 36);
+            this.CompactButton.TabIndex = 9;
+            this.CompactButton.TabStop = false;
+            this.CompactToolTip.SetToolTip(this.CompactButton, "Remove empty sectors from the current image");
+            this.CompactButton.UseVisualStyleBackColor = true;
+            this.CompactButton.Click += new System.EventHandler(this.CompactButton_Click);
             // 
             // SaveButton
             // 
@@ -498,11 +561,17 @@
         private System.Windows.Forms.Label Separator2;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button InfoButton;
+        private System.Windows.Forms.Button CompactButton;
         private System.Windows.Forms.ImageList ControlImages16;
         private System.Windows.Forms.ImageList ExplorerTreeImages16;
+        private System.Windows.Forms.ToolStripMenuItem CompactMenuItem;
         private System.Windows.Forms.ToolStripMenuItem SaveMenuItem;
+        private System.Windows.Forms.ToolStripSeparator FileMenuSeparator1;
+        private System.Windows.Forms.ToolStripSeparator FileMenuSeparator2;
         private System.Windows.Forms.ToolStripMenuItem SaveAsMenuItem;
         private System.Windows.Forms.Button SaveButton;
+        private System.Windows.Forms.Button NewButton;
+        private System.Windows.Forms.ToolStripMenuItem NewMenuItem;
     }
 }
 

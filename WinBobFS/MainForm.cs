@@ -22,7 +22,9 @@ namespace WinBobFS
             if (CreateGraphics().DpiX < 120)
             {
                 ExplorerTree.ImageList = ExplorerTreeImages16;
+                NewButton.ImageList = ControlImages16;
                 OpenButton.ImageList = ControlImages16;
+                CompactButton.ImageList = ControlImages16;
                 SaveButton.ImageList = ControlImages16;
                 NewFileButton.ImageList = ControlImages16;
                 NewDirectoryButton.ImageList = ControlImages16;
@@ -32,9 +34,18 @@ namespace WinBobFS
             }
         }
 
-        private void OpenMenuItem_Click(object sender, System.EventArgs e)
+        private void NewImg()
         {
-            OpenImg();
+            _rawImageSource = new RawImageSource();
+            _bobFs = BobFs.Mkfs(_rawImageSource);
+            Text = $"WinBobFS - <New>";
+
+            PopulateExplorerTree();
+            PopulateExplorerList(_bobFs.Root);
+
+            NewFileButton.Enabled = true;
+            NewDirectoryButton.Enabled = true;
+            ExplorerList.AllowDrop = true;
         }
 
         private void OpenImg()
@@ -155,9 +166,16 @@ namespace WinBobFS
             DoDragDrop(data, DragDropEffects.Copy);
         }
 
-        private void AboutMenuItem_Click(object sender, EventArgs e)
+        #region Menu events
+
+        private void NewMenuItem_Click(object sender, EventArgs e)
         {
-            new AboutForm().ShowDialog();
+            NewImg();
+        }
+
+        private void OpenMenuItem_Click(object sender, System.EventArgs e)
+        {
+            OpenImg();
         }
 
         private void SaveMenuItem_Click(object sender, EventArgs e)
@@ -170,10 +188,22 @@ namespace WinBobFS
             SaveImg();
         }
 
+        private void CompactMenuItem_Click(object sender, EventArgs e)
+        {
+            _rawImageSource.Compact();
+        }
+
         private void ExitMenuItem_Click(object sender, EventArgs e)
         {
             Application.Exit();
         }
+
+        private void AboutMenuItem_Click(object sender, EventArgs e)
+        {
+            new AboutForm().ShowDialog();
+        }
+
+        #endregion
 
         private void ExplorerList_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -189,12 +219,14 @@ namespace WinBobFS
 
         private void OpenButton_Click(object sender, EventArgs e)
         {
-            OpenImg();
             ActiveControl = null;
+            OpenImg();
         }
 
         private void InfoButton_Click(object sender, EventArgs e)
         {
+            ActiveControl = null;
+
             string body = "Nodes: 1\n" +
                           "I-number: 3\n" +
                           "Type: 1 (Directory)\n" +
@@ -206,12 +238,12 @@ namespace WinBobFS
 
             string title = $"About {ExplorerList.SelectedItems.Count} node" + (ExplorerList.SelectedItems.Count > 1 ? "s" : "");
             MessageBox.Show(this, body, title, MessageBoxButtons.OK, MessageBoxIcon.Information);
-
-            ActiveControl = null;
         }
 
         private void NewFileButton_Click(object sender, EventArgs e)
         {
+            ActiveControl = null;
+
             string newFileName = InputBox.Show("File name:");
             if (newFileName == null)
                 return;
@@ -219,12 +251,12 @@ namespace WinBobFS
             _curDirectory.NewFile(newFileName);
             _curDirectory.Commit();
             PopulateExplorerList(_curDirectory);
-
-            ActiveControl = null;
         }
 
         private void NewDirectoryButton_Click(object sender, EventArgs e)
         {
+            ActiveControl = null;
+
             string newDirName = InputBox.Show("Directory name:");
             if (newDirName == null)
                 return;
@@ -234,8 +266,6 @@ namespace WinBobFS
             PopulateExplorerList(_curDirectory);
 
             PopulateExplorerTree();
-
-            ActiveControl = null;
         }
 
         private void NewLinkButton_Click(object sender, EventArgs e)
@@ -285,10 +315,21 @@ namespace WinBobFS
 
         private void SaveButton_Click(object sender, EventArgs e)
         {
-            SaveImg();
-
-
             ActiveControl = null;
+            SaveImg();
+        }
+
+        private void CompactButton_Click(object sender, EventArgs e)
+        {
+            ActiveControl = null;
+            _rawImageSource.Compact();
+        }
+
+
+        private void NewButton_Click(object sender, EventArgs e)
+        {
+            ActiveControl = null;
+            NewImg();
         }
     }
 }
