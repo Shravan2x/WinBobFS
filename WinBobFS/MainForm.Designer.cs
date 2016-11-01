@@ -64,9 +64,12 @@
             this.NewFileButton = new System.Windows.Forms.Button();
             this.NewDirectoryButton = new System.Windows.Forms.Button();
             this.NewLinkButton = new System.Windows.Forms.Button();
-            this.label1 = new System.Windows.Forms.Label();
-            this.DeleteButton = new System.Windows.Forms.Button();
             this.Separator2 = new System.Windows.Forms.Label();
+            this.ImportButton = new System.Windows.Forms.Button();
+            this.ExportButton = new System.Windows.Forms.Button();
+            this.Separator3 = new System.Windows.Forms.Label();
+            this.DeleteButton = new System.Windows.Forms.Button();
+            this.Separator4 = new System.Windows.Forms.Label();
             this.InfoButton = new System.Windows.Forms.Button();
             this.ControlImages16 = new System.Windows.Forms.ImageList(this.components);
             this.ExplorerTreeImages16 = new System.Windows.Forms.ImageList(this.components);
@@ -232,7 +235,7 @@
             // 
             this.AddressBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.AddressBox.Location = new System.Drawing.Point(83, 5);
+            this.AddressBox.Location = new System.Drawing.Point(83, 4);
             this.AddressBox.Name = "AddressBox";
             this.AddressBox.ReadOnly = true;
             this.AddressBox.Size = new System.Drawing.Size(780, 26);
@@ -307,9 +310,12 @@
             this.ControlsPanel.Controls.Add(this.NewFileButton);
             this.ControlsPanel.Controls.Add(this.NewDirectoryButton);
             this.ControlsPanel.Controls.Add(this.NewLinkButton);
-            this.ControlsPanel.Controls.Add(this.label1);
-            this.ControlsPanel.Controls.Add(this.DeleteButton);
             this.ControlsPanel.Controls.Add(this.Separator2);
+            this.ControlsPanel.Controls.Add(this.ImportButton);
+            this.ControlsPanel.Controls.Add(this.ExportButton);
+            this.ControlsPanel.Controls.Add(this.Separator3);
+            this.ControlsPanel.Controls.Add(this.DeleteButton);
+            this.ControlsPanel.Controls.Add(this.Separator4);
             this.ControlsPanel.Controls.Add(this.InfoButton);
             this.ControlsPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.ControlsPanel.Location = new System.Drawing.Point(3, 3);
@@ -351,7 +357,7 @@
             // 
             this.OpenButton.ImageIndex = 1;
             this.OpenButton.ImageList = this.ControlImages;
-            this.OpenButton.Location = new System.Drawing.Point(3, 3);
+            this.OpenButton.Location = new System.Drawing.Point(45, 3);
             this.OpenButton.Name = "OpenButton";
             this.OpenButton.Size = new System.Drawing.Size(36, 36);
             this.OpenButton.TabIndex = 0;
@@ -376,10 +382,10 @@
             // 
             this.SaveButton.ImageIndex = 3;
             this.SaveButton.ImageList = this.ControlImages;
-            this.SaveButton.Location = new System.Drawing.Point(45, 3);
+            this.SaveButton.Location = new System.Drawing.Point(129, 3);
             this.SaveButton.Name = "SaveButton";
             this.SaveButton.Size = new System.Drawing.Size(36, 36);
-            this.SaveButton.TabIndex = 9;
+            this.SaveButton.TabIndex = 10;
             this.SaveButton.TabStop = false;
             this.SaveButton.UseVisualStyleBackColor = true;
             this.SaveButton.Click += new System.EventHandler(this.SaveButton_Click);
@@ -388,7 +394,7 @@
             // 
             this.Separator1.AutoSize = true;
             this.Separator1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.Separator1.Location = new System.Drawing.Point(92, 9);
+            this.Separator1.Location = new System.Drawing.Point(176, 9);
             this.Separator1.Margin = new System.Windows.Forms.Padding(8, 9, 8, 0);
             this.Separator1.Name = "Separator1";
             this.Separator1.Size = new System.Drawing.Size(2, 22);
@@ -399,7 +405,7 @@
             this.NewFileButton.Enabled = false;
             this.NewFileButton.ImageIndex = 4;
             this.NewFileButton.ImageList = this.ControlImages;
-            this.NewFileButton.Location = new System.Drawing.Point(105, 3);
+            this.NewFileButton.Location = new System.Drawing.Point(189, 3);
             this.NewFileButton.Name = "NewFileButton";
             this.NewFileButton.Size = new System.Drawing.Size(36, 36);
             this.NewFileButton.TabIndex = 1;
@@ -412,7 +418,7 @@
             this.NewDirectoryButton.Enabled = false;
             this.NewDirectoryButton.ImageIndex = 5;
             this.NewDirectoryButton.ImageList = this.ControlImages;
-            this.NewDirectoryButton.Location = new System.Drawing.Point(147, 3);
+            this.NewDirectoryButton.Location = new System.Drawing.Point(231, 3);
             this.NewDirectoryButton.Name = "NewDirectoryButton";
             this.NewDirectoryButton.Size = new System.Drawing.Size(36, 36);
             this.NewDirectoryButton.TabIndex = 2;
@@ -425,7 +431,7 @@
             this.NewLinkButton.Enabled = false;
             this.NewLinkButton.ImageIndex = 6;
             this.NewLinkButton.ImageList = this.ControlImages;
-            this.NewLinkButton.Location = new System.Drawing.Point(189, 3);
+            this.NewLinkButton.Location = new System.Drawing.Point(273, 3);
             this.NewLinkButton.Name = "NewLinkButton";
             this.NewLinkButton.Size = new System.Drawing.Size(36, 36);
             this.NewLinkButton.TabIndex = 3;
@@ -433,22 +439,58 @@
             this.NewLinkButton.UseVisualStyleBackColor = true;
             this.NewLinkButton.Click += new System.EventHandler(this.NewLinkButton_Click);
             // 
-            // label1
+            // Separator2
             // 
-            this.label1.AutoSize = true;
-            this.label1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.label1.Location = new System.Drawing.Point(236, 9);
-            this.label1.Margin = new System.Windows.Forms.Padding(8, 9, 8, 0);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(2, 22);
-            this.label1.TabIndex = 8;
+            this.Separator2.AutoSize = true;
+            this.Separator2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.Separator2.Location = new System.Drawing.Point(320, 9);
+            this.Separator2.Margin = new System.Windows.Forms.Padding(8, 9, 8, 0);
+            this.Separator2.Name = "Separator2";
+            this.Separator2.Size = new System.Drawing.Size(2, 22);
+            this.Separator2.TabIndex = 8;
+            // 
+            // ImportButton
+            // 
+            this.ImportButton.Enabled = false;
+            this.ImportButton.ImageIndex = 7;
+            this.ImportButton.ImageList = this.ControlImages;
+            this.ImportButton.Location = new System.Drawing.Point(333, 3);
+            this.ImportButton.Name = "ImportButton";
+            this.ImportButton.Size = new System.Drawing.Size(36, 36);
+            this.ImportButton.TabIndex = 11;
+            this.ImportButton.TabStop = false;
+            this.ImportButton.UseVisualStyleBackColor = true;
+            this.ImportButton.Click += new System.EventHandler(this.ImportButton_Click);
+            // 
+            // ExportButton
+            // 
+            this.ExportButton.Enabled = false;
+            this.ExportButton.ImageIndex = 8;
+            this.ExportButton.ImageList = this.ControlImages;
+            this.ExportButton.Location = new System.Drawing.Point(375, 3);
+            this.ExportButton.Name = "ExportButton";
+            this.ExportButton.Size = new System.Drawing.Size(36, 36);
+            this.ExportButton.TabIndex = 12;
+            this.ExportButton.TabStop = false;
+            this.ExportButton.UseVisualStyleBackColor = true;
+            this.ExportButton.Click += new System.EventHandler(this.ExportButton_Click);
+            // 
+            // Separator3
+            // 
+            this.Separator3.AutoSize = true;
+            this.Separator3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.Separator3.Location = new System.Drawing.Point(422, 9);
+            this.Separator3.Margin = new System.Windows.Forms.Padding(8, 9, 8, 0);
+            this.Separator3.Name = "Separator3";
+            this.Separator3.Size = new System.Drawing.Size(2, 22);
+            this.Separator3.TabIndex = 13;
             // 
             // DeleteButton
             // 
             this.DeleteButton.Enabled = false;
             this.DeleteButton.ImageIndex = 9;
             this.DeleteButton.ImageList = this.ControlImages;
-            this.DeleteButton.Location = new System.Drawing.Point(249, 3);
+            this.DeleteButton.Location = new System.Drawing.Point(435, 3);
             this.DeleteButton.Name = "DeleteButton";
             this.DeleteButton.Size = new System.Drawing.Size(36, 36);
             this.DeleteButton.TabIndex = 4;
@@ -456,22 +498,22 @@
             this.DeleteButton.UseVisualStyleBackColor = true;
             this.DeleteButton.Click += new System.EventHandler(this.DeleteButton_Click);
             // 
-            // Separator2
+            // Separator4
             // 
-            this.Separator2.AutoSize = true;
-            this.Separator2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.Separator2.Location = new System.Drawing.Point(296, 9);
-            this.Separator2.Margin = new System.Windows.Forms.Padding(8, 9, 8, 0);
-            this.Separator2.Name = "Separator2";
-            this.Separator2.Size = new System.Drawing.Size(2, 22);
-            this.Separator2.TabIndex = 6;
+            this.Separator4.AutoSize = true;
+            this.Separator4.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.Separator4.Location = new System.Drawing.Point(482, 9);
+            this.Separator4.Margin = new System.Windows.Forms.Padding(8, 9, 8, 0);
+            this.Separator4.Name = "Separator4";
+            this.Separator4.Size = new System.Drawing.Size(2, 22);
+            this.Separator4.TabIndex = 6;
             // 
             // InfoButton
             // 
             this.InfoButton.Enabled = false;
             this.InfoButton.ImageIndex = 10;
             this.InfoButton.ImageList = this.ControlImages;
-            this.InfoButton.Location = new System.Drawing.Point(309, 3);
+            this.InfoButton.Location = new System.Drawing.Point(495, 3);
             this.InfoButton.Name = "InfoButton";
             this.InfoButton.Size = new System.Drawing.Size(36, 36);
             this.InfoButton.TabIndex = 7;
@@ -558,8 +600,8 @@
         private System.Windows.Forms.Button NewDirectoryButton;
         private System.Windows.Forms.Button NewLinkButton;
         private System.Windows.Forms.Button DeleteButton;
+        private System.Windows.Forms.Label Separator4;
         private System.Windows.Forms.Label Separator2;
-        private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button InfoButton;
         private System.Windows.Forms.Button CompactButton;
         private System.Windows.Forms.ImageList ControlImages16;
@@ -570,6 +612,9 @@
         private System.Windows.Forms.ToolStripSeparator FileMenuSeparator2;
         private System.Windows.Forms.ToolStripMenuItem SaveAsMenuItem;
         private System.Windows.Forms.Button SaveButton;
+        private System.Windows.Forms.Button ImportButton;
+        private System.Windows.Forms.Button ExportButton;
+        private System.Windows.Forms.Label Separator3;
         private System.Windows.Forms.Button NewButton;
         private System.Windows.Forms.ToolStripMenuItem NewMenuItem;
     }

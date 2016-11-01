@@ -29,6 +29,8 @@ namespace WinBobFS
                 NewFileButton.ImageList = ControlImages16;
                 NewDirectoryButton.ImageList = ControlImages16;
                 NewLinkButton.ImageList = ControlImages16;
+                ImportButton.ImageList = ControlImages16;
+                ExportButton.ImageList = ControlImages16;
                 DeleteButton.ImageList = ControlImages16;
                 InfoButton.ImageList = ControlImages16;
             }
@@ -45,6 +47,7 @@ namespace WinBobFS
 
             NewFileButton.Enabled = true;
             NewDirectoryButton.Enabled = true;
+            ImportButton.Enabled = true;
             ExplorerList.AllowDrop = true;
         }
 
@@ -77,6 +80,7 @@ namespace WinBobFS
             NewDirectoryButton.Enabled = true;
             //NewLinkButton.Enabled = true;
             //InfoButton.Enabled = true;
+            ImportButton.Enabled = true;
             ExplorerList.AllowDrop = true;
         }
 
@@ -89,6 +93,33 @@ namespace WinBobFS
 
             if (imgSaveDialog.ShowDialog(this) == DialogResult.OK)
                 _rawImageSource.Save(imgSaveDialog.FileName);
+        }
+
+        private void Import(string[] files)
+        {
+            foreach (string filePath in files)
+                AddContents(_curDirectory, filePath);
+            _curDirectory.Commit();
+
+            PopulateExplorerList(_curDirectory);
+            PopulateExplorerTree();
+        }
+
+        private List<string> ExportSelections(string dest)
+        {
+            List<string> tempPaths = new List<string>();
+            foreach (ListViewItem currentItem in ExplorerList.SelectedItems)
+            {
+                KeyValuePair<string, BobFsNode> currentNodeInfo = (KeyValuePair<string, BobFsNode>) currentItem.Tag;
+                string tempFile = Path.Combine(dest, currentNodeInfo.Key);
+                byte[] tempBytes = new byte[currentNodeInfo.Value.Size];
+                currentNodeInfo.Value.ReadAll(0, tempBytes, 0, (int) currentNodeInfo.Value.Size);
+                File.WriteAllBytes(tempFile, tempBytes);
+
+                tempPaths.Add(tempFile);
+            }
+
+            return tempPaths;
         }
 
         private void PopulateExplorerTree()
@@ -145,23 +176,12 @@ namespace WinBobFS
         {
             if (e.Button != MouseButtons.Left)
                 return;
-            
+
             string tempRoot = Path.Combine(Path.GetTempPath(), "winbobfs\\");
             if (!File.Exists(tempRoot))
                 Directory.CreateDirectory(tempRoot);
-            
-            List<string> tempPaths = new List<string>();
-            foreach (ListViewItem currentItem in ExplorerList.SelectedItems)
-            {
-                KeyValuePair<string, BobFsNode> currentNodeInfo = (KeyValuePair<string, BobFsNode>) currentItem.Tag;
-                string tempFile = Path.Combine(tempRoot, currentNodeInfo.Key);
-                byte[] tempBytes = new byte[currentNodeInfo.Value.Size];
-                currentNodeInfo.Value.ReadAll(0, tempBytes, 0, (int) currentNodeInfo.Value.Size);
-                File.WriteAllBytes(tempFile, tempBytes);
 
-                tempPaths.Add(tempFile);
-            }
-
+            List<string> tempPaths = ExportSelections(tempRoot);
             DataObject data = new DataObject(DataFormats.FileDrop, tempPaths.ToArray());
             DoDragDrop(data, DragDropEffects.Copy);
         }
@@ -208,6 +228,8 @@ namespace WinBobFS
         private void ExplorerList_SelectedIndexChanged(object sender, EventArgs e)
         {
             //InfoButton.Enabled = (ExplorerList.SelectedItems.Count > 0);
+            ExportButton.Enabled = (ExplorerList.SelectedItems.Count > 0);
+
             RecalculateStatus();
         }
 
@@ -281,12 +303,16 @@ namespace WinBobFS
         private void ExplorerList_DragDrop(object sender, DragEventArgs e)
         {
             string[] filePaths = (string[]) e.Data.GetData(DataFormats.FileDrop);
-            foreach (string filePath in filePaths)
-                AddContents(_curDirectory, filePath);
-            _curDirectory.Commit();
 
-            PopulateExplorerList(_curDirectory);
-            PopulateExplorerTree();
+            // BUG: Check for directories
+            // Make sure the files are within the size limit
+            if (filePaths.Any(filePath => (new FileInfo(filePath)).Length > BobFs.MaxFilesize))
+            {
+                MessageBox.Show("One or more files are larger than 257K.", "WinBobFS", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            Import(filePaths);
         }
 
         // Requires caller to commit changes to parent
@@ -325,6 +351,30 @@ namespace WinBobFS
             _rawImageSource.Compact();
         }
 
+        private void ImportButton_Click(object sender, EventArgs e)
+        {
+            ActiveControl = null;
+
+            OpenFileDialog importFileDialog = new OpenFileDialog();
+            importFileDialog.Filter = "All files (*.*)|*.*";
+            importFileDialog.FilterIndex = 0;
+            importFileDialog.CheckFileExists = true;
+            importFileDialog.Multiselect = true;
+
+            if (importFileDialog.ShowDialog(this) == DialogResult.OK)
+                Import(importFileDialog.FileNames);
+        }
+
+        private void ExportButton_Click(object sender, EventArgs e)
+        {
+            ActiveControl = null;
+
+            FolderBrowserDialog folderBrowserDialog = new FolderBrowserDialog();
+            folderBrowserDialog.Description = "Pick a destination directory";
+            folderBrowserDialog.ShowNewFolderButton = true;
+            if (folderBrowserDialog.ShowDialog(this) == DialogResult.OK)
+                ExportSelections(folderBrowserDialog.SelectedPath);
+        }
 
         private void NewButton_Click(object sender, EventArgs e)
         {
