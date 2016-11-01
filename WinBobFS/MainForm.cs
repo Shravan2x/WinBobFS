@@ -69,6 +69,17 @@ namespace WinBobFS
             ExplorerList.AllowDrop = true;
         }
 
+        private void SaveImg()
+        {
+            SaveFileDialog imgSaveDialog = new SaveFileDialog();
+            imgSaveDialog.Filter = "Image files (*.img)|*.img";
+            imgSaveDialog.FilterIndex = 0;
+            imgSaveDialog.CheckFileExists = false;
+
+            if (imgSaveDialog.ShowDialog(this) == DialogResult.OK)
+                _rawImageSource.Save(imgSaveDialog.FileName);
+        }
+
         private void PopulateExplorerTree()
         {
             ExplorerTree.Nodes.Clear();
@@ -147,6 +158,16 @@ namespace WinBobFS
         private void AboutMenuItem_Click(object sender, EventArgs e)
         {
             new AboutForm().ShowDialog();
+        }
+
+        private void SaveMenuItem_Click(object sender, EventArgs e)
+        {
+            _rawImageSource.Save();
+        }
+
+        private void SaveAsMenuItem_Click(object sender, EventArgs e)
+        {
+            SaveImg();
         }
 
         private void ExitMenuItem_Click(object sender, EventArgs e)
@@ -264,13 +285,8 @@ namespace WinBobFS
 
         private void SaveButton_Click(object sender, EventArgs e)
         {
-            SaveFileDialog imgSaveDialog = new SaveFileDialog();
-            imgSaveDialog.Filter = "Image files (*.img)|*.img";
-            imgSaveDialog.FilterIndex = 0;
-            imgSaveDialog.CheckFileExists = false;
+            SaveImg();
 
-            if (imgSaveDialog.ShowDialog(this) == DialogResult.OK)
-                _rawImageSource.Save(imgSaveDialog.FileName);
 
             ActiveControl = null;
         }

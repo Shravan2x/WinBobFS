@@ -35,6 +35,8 @@
             this.MenuStrip = new System.Windows.Forms.MenuStrip();
             this.FileMenu = new System.Windows.Forms.ToolStripMenuItem();
             this.OpenMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.SaveMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.SaveAsMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ExitMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.HelpMenu = new System.Windows.Forms.ToolStripMenuItem();
             this.AboutMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -102,6 +104,8 @@
             // 
             this.FileMenu.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.OpenMenuItem,
+            this.SaveMenuItem,
+            this.SaveAsMenuItem,
             this.ExitMenuItem});
             this.FileMenu.Name = "FileMenu";
             this.FileMenu.Size = new System.Drawing.Size(50, 29);
@@ -110,9 +114,23 @@
             // OpenMenuItem
             // 
             this.OpenMenuItem.Name = "OpenMenuItem";
-            this.OpenMenuItem.Size = new System.Drawing.Size(141, 30);
+            this.OpenMenuItem.Size = new System.Drawing.Size(211, 30);
             this.OpenMenuItem.Text = "Open";
             this.OpenMenuItem.Click += new System.EventHandler(this.OpenMenuItem_Click);
+            // 
+            // SaveMenuItem
+            // 
+            this.SaveMenuItem.Name = "SaveMenuItem";
+            this.SaveMenuItem.Size = new System.Drawing.Size(211, 30);
+            this.SaveMenuItem.Text = "Save";
+            this.SaveMenuItem.Click += new System.EventHandler(this.SaveMenuItem_Click);
+            // 
+            // SaveAsMenuItem
+            // 
+            this.SaveAsMenuItem.Name = "SaveAsMenuItem";
+            this.SaveAsMenuItem.Size = new System.Drawing.Size(211, 30);
+            this.SaveAsMenuItem.Text = "Save As...";
+            this.SaveAsMenuItem.Click += new System.EventHandler(this.SaveAsMenuItem_Click);
             // 
             // ExitMenuItem
             // 
@@ -263,9 +281,25 @@
             this.ControlsPanel.Size = new System.Drawing.Size(872, 44);
             this.ControlsPanel.TabIndex = 3;
             // 
+            // ControlImages
+            // 
+            this.ControlImages.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("ControlImages.ImageStream")));
+            this.ControlImages.TransparentColor = System.Drawing.Color.Transparent;
+            this.ControlImages.Images.SetKeyName(0, "new.png");
+            this.ControlImages.Images.SetKeyName(1, "openfile.png");
+            this.ControlImages.Images.SetKeyName(2, "compact.png");
+            this.ControlImages.Images.SetKeyName(3, "save.png");
+            this.ControlImages.Images.SetKeyName(4, "newfile.png");
+            this.ControlImages.Images.SetKeyName(5, "newdir.png");
+            this.ControlImages.Images.SetKeyName(6, "newlink.png");
+            this.ControlImages.Images.SetKeyName(7, "import.png");
+            this.ControlImages.Images.SetKeyName(8, "export.png");
+            this.ControlImages.Images.SetKeyName(9, "delete.png");
+            this.ControlImages.Images.SetKeyName(10, "info.png");
+            // 
             // OpenButton
             // 
-            this.OpenButton.ImageIndex = 0;
+            this.OpenButton.ImageIndex = 1;
             this.OpenButton.ImageList = this.ControlImages;
             this.OpenButton.Location = new System.Drawing.Point(3, 3);
             this.OpenButton.Name = "OpenButton";
@@ -275,21 +309,9 @@
             this.OpenButton.UseVisualStyleBackColor = true;
             this.OpenButton.Click += new System.EventHandler(this.OpenButton_Click);
             // 
-            // ControlImages
-            // 
-            this.ControlImages.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("ControlImages.ImageStream")));
-            this.ControlImages.TransparentColor = System.Drawing.Color.Transparent;
-            this.ControlImages.Images.SetKeyName(0, "openfile.png");
-            this.ControlImages.Images.SetKeyName(1, "save.png");
-            this.ControlImages.Images.SetKeyName(2, "newfile.png");
-            this.ControlImages.Images.SetKeyName(3, "newdir.png");
-            this.ControlImages.Images.SetKeyName(4, "newlink.png");
-            this.ControlImages.Images.SetKeyName(5, "delete.png");
-            this.ControlImages.Images.SetKeyName(6, "info.png");
-            // 
             // SaveButton
             // 
-            this.SaveButton.ImageIndex = 1;
+            this.SaveButton.ImageIndex = 3;
             this.SaveButton.ImageList = this.ControlImages;
             this.SaveButton.Location = new System.Drawing.Point(45, 3);
             this.SaveButton.Name = "SaveButton";
@@ -312,7 +334,7 @@
             // NewFileButton
             // 
             this.NewFileButton.Enabled = false;
-            this.NewFileButton.ImageIndex = 2;
+            this.NewFileButton.ImageIndex = 4;
             this.NewFileButton.ImageList = this.ControlImages;
             this.NewFileButton.Location = new System.Drawing.Point(105, 3);
             this.NewFileButton.Name = "NewFileButton";
@@ -325,7 +347,7 @@
             // NewDirectoryButton
             // 
             this.NewDirectoryButton.Enabled = false;
-            this.NewDirectoryButton.ImageIndex = 3;
+            this.NewDirectoryButton.ImageIndex = 5;
             this.NewDirectoryButton.ImageList = this.ControlImages;
             this.NewDirectoryButton.Location = new System.Drawing.Point(147, 3);
             this.NewDirectoryButton.Name = "NewDirectoryButton";
@@ -338,7 +360,7 @@
             // NewLinkButton
             // 
             this.NewLinkButton.Enabled = false;
-            this.NewLinkButton.ImageIndex = 4;
+            this.NewLinkButton.ImageIndex = 6;
             this.NewLinkButton.ImageList = this.ControlImages;
             this.NewLinkButton.Location = new System.Drawing.Point(189, 3);
             this.NewLinkButton.Name = "NewLinkButton";
@@ -361,7 +383,7 @@
             // DeleteButton
             // 
             this.DeleteButton.Enabled = false;
-            this.DeleteButton.ImageIndex = 5;
+            this.DeleteButton.ImageIndex = 9;
             this.DeleteButton.ImageList = this.ControlImages;
             this.DeleteButton.Location = new System.Drawing.Point(249, 3);
             this.DeleteButton.Name = "DeleteButton";
@@ -384,7 +406,7 @@
             // InfoButton
             // 
             this.InfoButton.Enabled = false;
-            this.InfoButton.ImageIndex = 6;
+            this.InfoButton.ImageIndex = 10;
             this.InfoButton.ImageList = this.ControlImages;
             this.InfoButton.Location = new System.Drawing.Point(309, 3);
             this.InfoButton.Name = "InfoButton";
@@ -398,13 +420,17 @@
             // 
             this.ControlImages16.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("ControlImages16.ImageStream")));
             this.ControlImages16.TransparentColor = System.Drawing.Color.Transparent;
-            this.ControlImages16.Images.SetKeyName(0, "openfile.png");
-            this.ControlImages16.Images.SetKeyName(1, "save.png");
-            this.ControlImages16.Images.SetKeyName(2, "newfile.png");
-            this.ControlImages16.Images.SetKeyName(3, "newdir.png");
-            this.ControlImages16.Images.SetKeyName(4, "newlink.png");
-            this.ControlImages16.Images.SetKeyName(5, "delete.png");
-            this.ControlImages16.Images.SetKeyName(6, "info.png");
+            this.ControlImages16.Images.SetKeyName(0, "new.png");
+            this.ControlImages16.Images.SetKeyName(1, "openfile.png");
+            this.ControlImages16.Images.SetKeyName(2, "compact.png");
+            this.ControlImages16.Images.SetKeyName(3, "save.png");
+            this.ControlImages16.Images.SetKeyName(4, "newfile.png");
+            this.ControlImages16.Images.SetKeyName(5, "newdir.png");
+            this.ControlImages16.Images.SetKeyName(6, "newlink.png");
+            this.ControlImages16.Images.SetKeyName(7, "import.png");
+            this.ControlImages16.Images.SetKeyName(8, "export.png");
+            this.ControlImages16.Images.SetKeyName(9, "delete.png");
+            this.ControlImages16.Images.SetKeyName(10, "info.png");
             // 
             // ExplorerTreeImages16
             // 
@@ -472,9 +498,11 @@
         private System.Windows.Forms.Label Separator2;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button InfoButton;
-        private System.Windows.Forms.Button SaveButton;
         private System.Windows.Forms.ImageList ControlImages16;
         private System.Windows.Forms.ImageList ExplorerTreeImages16;
+        private System.Windows.Forms.ToolStripMenuItem SaveMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem SaveAsMenuItem;
+        private System.Windows.Forms.Button SaveButton;
     }
 }
 
