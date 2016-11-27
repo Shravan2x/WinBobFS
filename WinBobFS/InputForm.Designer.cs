@@ -43,7 +43,7 @@
             this.OkButton.Location = new System.Drawing.Point(181, 99);
             this.OkButton.Name = "OkButton";
             this.OkButton.Size = new System.Drawing.Size(114, 34);
-            this.OkButton.TabIndex = 0;
+            this.OkButton.TabIndex = 1;
             this.OkButton.Text = "OK";
             this.OkButton.UseVisualStyleBackColor = true;
             this.OkButton.Click += new System.EventHandler(this.OkButton_Click);
@@ -56,7 +56,7 @@
             this.CancelButton.Location = new System.Drawing.Point(301, 99);
             this.CancelButton.Name = "CancelButton";
             this.CancelButton.Size = new System.Drawing.Size(114, 34);
-            this.CancelButton.TabIndex = 1;
+            this.CancelButton.TabIndex = 2;
             this.CancelButton.Text = "Cancel";
             this.CancelButton.UseVisualStyleBackColor = true;
             this.CancelButton.Click += new System.EventHandler(this.CancelButton_Click);
@@ -68,7 +68,7 @@
             this.InputBox.Location = new System.Drawing.Point(47, 55);
             this.InputBox.Name = "InputBox";
             this.InputBox.Size = new System.Drawing.Size(501, 26);
-            this.InputBox.TabIndex = 2;
+            this.InputBox.TabIndex = 0;
             this.InputBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.InputBox_KeyDown);
             // 
             // MessageLabel
