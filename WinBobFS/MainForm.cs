@@ -29,9 +29,10 @@ namespace WinBobFS
                 NewFileButton.ImageList = ControlImages16;
                 NewDirectoryButton.ImageList = ControlImages16;
                 NewLinkButton.ImageList = ControlImages16;
+                RenameButton.ImageList = ControlImages16;
+                DeleteButton.ImageList = ControlImages16;
                 ImportButton.ImageList = ControlImages16;
                 ExportButton.ImageList = ControlImages16;
-                DeleteButton.ImageList = ControlImages16;
                 InfoButton.ImageList = ControlImages16;
             }
         }
@@ -103,6 +104,25 @@ namespace WinBobFS
 
             PopulateExplorerList(_curDirectory);
             PopulateExplorerTree();
+        }
+
+        // Requires caller to commit changes to parent
+        private void AddContents(BobFsNode parent, string path)
+        {
+            if (File.Exists(path))
+            {
+                BobFsNode newFile = parent.NewFile(Path.GetFileName(path));
+                byte[] fileContents = File.ReadAllBytes(path);
+                newFile.WriteAll(0, fileContents, 0, fileContents.Length);
+                newFile.Commit();
+            }
+            else if (Directory.Exists(path))
+            {
+                BobFsNode newDir = parent.NewDirectory(Path.GetFileName(path));
+                foreach (string dirEntry in Directory.EnumerateFileSystemEntries(path))
+                    AddContents(newDir, dirEntry);
+                newDir.Commit();
+            }
         }
 
         private List<string> ExportSelections(string dest)
@@ -186,6 +206,41 @@ namespace WinBobFS
             DoDragDrop(data, DragDropEffects.Copy);
         }
 
+        private void ExplorerList_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            RenameButton.Enabled = (ExplorerList.SelectedItems.Count == 1);
+            ExportButton.Enabled = (ExplorerList.SelectedItems.Count > 0);
+            //InfoButton.Enabled = (ExplorerList.SelectedItems.Count > 0);
+
+            RecalculateStatus();
+        }
+
+        private void RecalculateStatus()
+        {
+            int selectedTotalSize = ExplorerList.SelectedItems.Cast<ListViewItem>().Sum(currentItem => (int) ((KeyValuePair<string, BobFsNode>) currentItem.Tag).Value.Size);
+            StatusLabel.Text = $"{selectedTotalSize} B of {_currentDirTotalSize} B in {ExplorerList.SelectedItems.Count} of {ExplorerList.Items.Count}";
+        }
+
+        private void ExplorerList_DragDrop(object sender, DragEventArgs e)
+        {
+            string[] filePaths = (string[]) e.Data.GetData(DataFormats.FileDrop);
+
+            // BUG: Check for directories
+            // Make sure the files are within the size limit
+            if (filePaths.Any(filePath => (new FileInfo(filePath)).Length > BobFs.MaxFilesize))
+            {
+                MessageBox.Show("One or more files are larger than 257K.", "WinBobFS", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            Import(filePaths);
+        }
+
+        private void ExplorerList_DragEnter(object sender, DragEventArgs e)
+        {
+            e.Effect = DragDropEffects.Copy;
+        }
+
         #region Menu events
 
         private void NewMenuItem_Click(object sender, EventArgs e)
@@ -225,18 +280,12 @@ namespace WinBobFS
 
         #endregion
 
-        private void ExplorerList_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            //InfoButton.Enabled = (ExplorerList.SelectedItems.Count > 0);
-            ExportButton.Enabled = (ExplorerList.SelectedItems.Count > 0);
+        #region Toolbar events
 
-            RecalculateStatus();
-        }
-
-        private void RecalculateStatus()
+        private void NewButton_Click(object sender, EventArgs e)
         {
-            int selectedTotalSize = ExplorerList.SelectedItems.Cast<ListViewItem>().Sum(currentItem => (int) ((KeyValuePair<string, BobFsNode>) currentItem.Tag).Value.Size);
-            StatusLabel.Text = $"{selectedTotalSize} B of {_currentDirTotalSize} B in {ExplorerList.SelectedItems.Count} of {ExplorerList.Items.Count}";
+            ActiveControl = null;
+            NewImg();
         }
 
         private void OpenButton_Click(object sender, EventArgs e)
@@ -245,23 +294,18 @@ namespace WinBobFS
             OpenImg();
         }
 
-        private void InfoButton_Click(object sender, EventArgs e)
+        private void CompactButton_Click(object sender, EventArgs e)
         {
             ActiveControl = null;
-
-            string body = "Nodes: 1\n" +
-                          "I-number: 3\n" +
-                          "Type: 1 (Directory)\n" +
-                          "Total size: 6072 B\n" +
-                          "Size on disk: 7000 B\n" +
-                          "Num links: 3\n" +
-                          "Direct block: 131\n" +
-                          "Indirect block: 132";
-
-            string title = $"About {ExplorerList.SelectedItems.Count} node" + (ExplorerList.SelectedItems.Count > 1 ? "s" : "");
-            MessageBox.Show(this, body, title, MessageBoxButtons.OK, MessageBoxIcon.Information);
+            _rawImageSource.Compact();
         }
 
+        private void SaveButton_Click(object sender, EventArgs e)
+        {
+            ActiveControl = null;
+            SaveImg();
+        }
+        
         private void NewFileButton_Click(object sender, EventArgs e)
         {
             ActiveControl = null;
@@ -294,61 +338,24 @@ namespace WinBobFS
         {
             ActiveControl = null;
         }
+        
+        private void RenameButton_Click(object sender, EventArgs e)
+        {
+            ActiveControl = null;
+
+            string newName = InputBox.Show("New name:");
+            if (newName == null)
+                return;
+
+            KeyValuePair<string, BobFsNode> currentNodeInfo = (KeyValuePair<string, BobFsNode>) ExplorerList.SelectedItems[0].Tag;
+            _curDirectory.RenameNode(currentNodeInfo.Value, newName);
+            _curDirectory.Commit();
+            PopulateExplorerList(_curDirectory);
+        }
 
         private void DeleteButton_Click(object sender, EventArgs e)
         {
             ActiveControl = null;
-        }
-
-        private void ExplorerList_DragDrop(object sender, DragEventArgs e)
-        {
-            string[] filePaths = (string[]) e.Data.GetData(DataFormats.FileDrop);
-
-            // BUG: Check for directories
-            // Make sure the files are within the size limit
-            if (filePaths.Any(filePath => (new FileInfo(filePath)).Length > BobFs.MaxFilesize))
-            {
-                MessageBox.Show("One or more files are larger than 257K.", "WinBobFS", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
-
-            Import(filePaths);
-        }
-
-        // Requires caller to commit changes to parent
-        private void AddContents(BobFsNode parent, string path)
-        {
-            if (File.Exists(path))
-            {
-                BobFsNode newFile = parent.NewFile(Path.GetFileName(path));
-                byte[] fileContents = File.ReadAllBytes(path);
-                newFile.WriteAll(0, fileContents, 0, fileContents.Length);
-                newFile.Commit();
-            }
-            else if (Directory.Exists(path))
-            {
-                BobFsNode newDir = parent.NewDirectory(Path.GetFileName(path));
-                foreach (string dirEntry in Directory.EnumerateFileSystemEntries(path))
-                    AddContents(newDir, dirEntry);
-                newDir.Commit();
-            }
-        }
-
-        private void ExplorerList_DragEnter(object sender, DragEventArgs e)
-        {
-            e.Effect = DragDropEffects.Copy;
-        }
-
-        private void SaveButton_Click(object sender, EventArgs e)
-        {
-            ActiveControl = null;
-            SaveImg();
-        }
-
-        private void CompactButton_Click(object sender, EventArgs e)
-        {
-            ActiveControl = null;
-            _rawImageSource.Compact();
         }
 
         private void ImportButton_Click(object sender, EventArgs e)
@@ -376,10 +383,23 @@ namespace WinBobFS
                 ExportSelections(folderBrowserDialog.SelectedPath);
         }
 
-        private void NewButton_Click(object sender, EventArgs e)
+        private void InfoButton_Click(object sender, EventArgs e)
         {
             ActiveControl = null;
-            NewImg();
+
+            string body = "Nodes: 1\n" +
+                          "I-number: 3\n" +
+                          "Type: 1 (Directory)\n" +
+                          "Total size: 6072 B\n" +
+                          "Size on disk: 7000 B\n" +
+                          "Num links: 3\n" +
+                          "Direct block: 131\n" +
+                          "Indirect block: 132";
+
+            string title = $"About {ExplorerList.SelectedItems.Count} node" + (ExplorerList.SelectedItems.Count > 1 ? "s" : "");
+            MessageBox.Show(this, body, title, MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
+
+        #endregion
     }
 }

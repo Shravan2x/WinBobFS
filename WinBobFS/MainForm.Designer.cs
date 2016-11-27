@@ -81,6 +81,7 @@
             this.ImportToolTip = new System.Windows.Forms.ToolTip(this.components);
             this.ExportToolTip = new System.Windows.Forms.ToolTip(this.components);
             this.NewToolTip = new System.Windows.Forms.ToolTip(this.components);
+            this.RenameButton = new System.Windows.Forms.Button();
             this.StatusStrip.SuspendLayout();
             this.MenuStrip.SuspendLayout();
             this.ExplorerTable.SuspendLayout();
@@ -135,52 +136,52 @@
             // NewMenuItem
             // 
             this.NewMenuItem.Name = "NewMenuItem";
-            this.NewMenuItem.Size = new System.Drawing.Size(211, 30);
+            this.NewMenuItem.Size = new System.Drawing.Size(171, 30);
             this.NewMenuItem.Text = "New";
             this.NewMenuItem.Click += new System.EventHandler(this.NewMenuItem_Click);
             // 
             // OpenMenuItem
             // 
             this.OpenMenuItem.Name = "OpenMenuItem";
-            this.OpenMenuItem.Size = new System.Drawing.Size(211, 30);
+            this.OpenMenuItem.Size = new System.Drawing.Size(171, 30);
             this.OpenMenuItem.Text = "Open";
             this.OpenMenuItem.Click += new System.EventHandler(this.OpenMenuItem_Click);
             // 
             // FileMenuSeparator1
             // 
             this.FileMenuSeparator1.Name = "FileMenuSeparator1";
-            this.FileMenuSeparator1.Size = new System.Drawing.Size(208, 6);
+            this.FileMenuSeparator1.Size = new System.Drawing.Size(168, 6);
             // 
             // CompactMenuItem
             // 
             this.CompactMenuItem.Name = "CompactMenuItem";
-            this.CompactMenuItem.Size = new System.Drawing.Size(211, 30);
+            this.CompactMenuItem.Size = new System.Drawing.Size(171, 30);
             this.CompactMenuItem.Text = "Compact";
             this.CompactMenuItem.Click += new System.EventHandler(this.CompactMenuItem_Click);
             // 
             // SaveMenuItem
             // 
             this.SaveMenuItem.Name = "SaveMenuItem";
-            this.SaveMenuItem.Size = new System.Drawing.Size(211, 30);
+            this.SaveMenuItem.Size = new System.Drawing.Size(171, 30);
             this.SaveMenuItem.Text = "Save";
             this.SaveMenuItem.Click += new System.EventHandler(this.SaveMenuItem_Click);
             // 
             // SaveAsMenuItem
             // 
             this.SaveAsMenuItem.Name = "SaveAsMenuItem";
-            this.SaveAsMenuItem.Size = new System.Drawing.Size(211, 30);
+            this.SaveAsMenuItem.Size = new System.Drawing.Size(171, 30);
             this.SaveAsMenuItem.Text = "Save As...";
             this.SaveAsMenuItem.Click += new System.EventHandler(this.SaveAsMenuItem_Click);
             // 
             // FileMenuSeparator2
             // 
             this.FileMenuSeparator2.Name = "FileMenuSeparator2";
-            this.FileMenuSeparator2.Size = new System.Drawing.Size(208, 6);
+            this.FileMenuSeparator2.Size = new System.Drawing.Size(168, 6);
             // 
             // ExitMenuItem
             // 
             this.ExitMenuItem.Name = "ExitMenuItem";
-            this.ExitMenuItem.Size = new System.Drawing.Size(211, 30);
+            this.ExitMenuItem.Size = new System.Drawing.Size(171, 30);
             this.ExitMenuItem.Text = "Exit";
             this.ExitMenuItem.Click += new System.EventHandler(this.ExitMenuItem_Click);
             // 
@@ -319,10 +320,11 @@
             this.ControlsPanel.Controls.Add(this.NewDirectoryButton);
             this.ControlsPanel.Controls.Add(this.NewLinkButton);
             this.ControlsPanel.Controls.Add(this.Separator2);
+            this.ControlsPanel.Controls.Add(this.RenameButton);
+            this.ControlsPanel.Controls.Add(this.DeleteButton);
+            this.ControlsPanel.Controls.Add(this.Separator3);
             this.ControlsPanel.Controls.Add(this.ImportButton);
             this.ControlsPanel.Controls.Add(this.ExportButton);
-            this.ControlsPanel.Controls.Add(this.Separator3);
-            this.ControlsPanel.Controls.Add(this.DeleteButton);
             this.ControlsPanel.Controls.Add(this.Separator4);
             this.ControlsPanel.Controls.Add(this.InfoButton);
             this.ControlsPanel.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -356,10 +358,11 @@
             this.ControlImages.Images.SetKeyName(4, "newfile.png");
             this.ControlImages.Images.SetKeyName(5, "newdir.png");
             this.ControlImages.Images.SetKeyName(6, "newlink.png");
-            this.ControlImages.Images.SetKeyName(7, "import.png");
-            this.ControlImages.Images.SetKeyName(8, "export.png");
-            this.ControlImages.Images.SetKeyName(9, "delete.png");
-            this.ControlImages.Images.SetKeyName(10, "info.png");
+            this.ControlImages.Images.SetKeyName(7, "rename.png");
+            this.ControlImages.Images.SetKeyName(8, "delete.png");
+            this.ControlImages.Images.SetKeyName(9, "import.png");
+            this.ControlImages.Images.SetKeyName(10, "export.png");
+            this.ControlImages.Images.SetKeyName(11, "info.png");
             // 
             // OpenButton
             // 
@@ -464,9 +467,9 @@
             // ImportButton
             // 
             this.ImportButton.Enabled = false;
-            this.ImportButton.ImageIndex = 7;
+            this.ImportButton.ImageIndex = 9;
             this.ImportButton.ImageList = this.ControlImages;
-            this.ImportButton.Location = new System.Drawing.Point(333, 3);
+            this.ImportButton.Location = new System.Drawing.Point(435, 3);
             this.ImportButton.Name = "ImportButton";
             this.ImportButton.Size = new System.Drawing.Size(36, 36);
             this.ImportButton.TabIndex = 11;
@@ -478,9 +481,9 @@
             // ExportButton
             // 
             this.ExportButton.Enabled = false;
-            this.ExportButton.ImageIndex = 8;
+            this.ExportButton.ImageIndex = 10;
             this.ExportButton.ImageList = this.ControlImages;
-            this.ExportButton.Location = new System.Drawing.Point(375, 3);
+            this.ExportButton.Location = new System.Drawing.Point(477, 3);
             this.ExportButton.Name = "ExportButton";
             this.ExportButton.Size = new System.Drawing.Size(36, 36);
             this.ExportButton.TabIndex = 12;
@@ -502,9 +505,9 @@
             // DeleteButton
             // 
             this.DeleteButton.Enabled = false;
-            this.DeleteButton.ImageIndex = 9;
+            this.DeleteButton.ImageIndex = 8;
             this.DeleteButton.ImageList = this.ControlImages;
-            this.DeleteButton.Location = new System.Drawing.Point(435, 3);
+            this.DeleteButton.Location = new System.Drawing.Point(375, 3);
             this.DeleteButton.Name = "DeleteButton";
             this.DeleteButton.Size = new System.Drawing.Size(36, 36);
             this.DeleteButton.TabIndex = 4;
@@ -516,7 +519,7 @@
             // 
             this.Separator4.AutoSize = true;
             this.Separator4.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.Separator4.Location = new System.Drawing.Point(482, 9);
+            this.Separator4.Location = new System.Drawing.Point(524, 9);
             this.Separator4.Margin = new System.Windows.Forms.Padding(8, 9, 8, 0);
             this.Separator4.Name = "Separator4";
             this.Separator4.Size = new System.Drawing.Size(2, 22);
@@ -525,9 +528,9 @@
             // InfoButton
             // 
             this.InfoButton.Enabled = false;
-            this.InfoButton.ImageIndex = 10;
+            this.InfoButton.ImageIndex = 11;
             this.InfoButton.ImageList = this.ControlImages;
-            this.InfoButton.Location = new System.Drawing.Point(495, 3);
+            this.InfoButton.Location = new System.Drawing.Point(537, 3);
             this.InfoButton.Name = "InfoButton";
             this.InfoButton.Size = new System.Drawing.Size(36, 36);
             this.InfoButton.TabIndex = 7;
@@ -546,10 +549,11 @@
             this.ControlImages16.Images.SetKeyName(4, "newfile.png");
             this.ControlImages16.Images.SetKeyName(5, "newdir.png");
             this.ControlImages16.Images.SetKeyName(6, "newlink.png");
-            this.ControlImages16.Images.SetKeyName(7, "import.png");
-            this.ControlImages16.Images.SetKeyName(8, "export.png");
-            this.ControlImages16.Images.SetKeyName(9, "delete.png");
-            this.ControlImages16.Images.SetKeyName(10, "info.png");
+            this.ControlImages16.Images.SetKeyName(7, "rename.png");
+            this.ControlImages16.Images.SetKeyName(8, "delete.png");
+            this.ControlImages16.Images.SetKeyName(9, "import.png");
+            this.ControlImages16.Images.SetKeyName(10, "export.png");
+            this.ControlImages16.Images.SetKeyName(11, "info.png");
             // 
             // ExplorerTreeImages16
             // 
@@ -589,6 +593,19 @@
             // NewToolTip
             // 
             this.NewToolTip.ToolTipTitle = "New";
+            // 
+            // RenameButton
+            // 
+            this.RenameButton.Enabled = false;
+            this.RenameButton.ImageIndex = 7;
+            this.RenameButton.ImageList = this.ControlImages;
+            this.RenameButton.Location = new System.Drawing.Point(333, 3);
+            this.RenameButton.Name = "RenameButton";
+            this.RenameButton.Size = new System.Drawing.Size(36, 36);
+            this.RenameButton.TabIndex = 15;
+            this.RenameButton.TabStop = false;
+            this.RenameButton.UseVisualStyleBackColor = true;
+            this.RenameButton.Click += new System.EventHandler(this.RenameButton_Click);
             // 
             // MainForm
             // 
@@ -671,6 +688,7 @@
         private System.Windows.Forms.Button NewButton;
         private System.Windows.Forms.ToolTip NewToolTip;
         private System.Windows.Forms.ToolStripMenuItem NewMenuItem;
+        private System.Windows.Forms.Button RenameButton;
     }
 }
 
