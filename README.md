@@ -1,5 +1,5 @@
 <h1 align="center">
-  <img src="https://i.imgur.com/ipq2ac7.png" height="64" width="64" />
+  <img src="https://i.imgur.com/hLNvjCo.png" height="64" width="64" />
   <br/>
   WinBobFS
 </h1>
