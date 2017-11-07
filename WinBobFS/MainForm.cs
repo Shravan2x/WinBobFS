@@ -225,9 +225,8 @@ namespace WinBobFS
         {
             string[] filePaths = (string[]) e.Data.GetData(DataFormats.FileDrop);
 
-            // BUG: Check for directories
             // Make sure the files are within the size limit
-            if (filePaths.Any(filePath => (new FileInfo(filePath)).Length > BobFs.MaxFilesize))
+            if (filePaths.Any(filePath => File.Exists(filePath) && (new FileInfo(filePath)).Length > BobFs.MaxFilesize))
             {
                 MessageBox.Show("One or more files are larger than 257K.", "WinBobFS", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
