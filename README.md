@@ -14,7 +14,7 @@
 - Visit [the releases page](https://github.com/Shravan2x/WinBobFS/releases) and download the latest .zip.
 
 #### Windows
-- Download & install [.NET Framework](https://www.microsoft.com/net/download) if you're using Windows 7. Windows 8 and above should do this automatically for you.
+- Download & install the [.NET Framework](https://www.microsoft.com/net/download) if you're using Windows 7. Windows 8 and above should already have it installed.
 - Extract the files and run WinBobFS.exe.
 
 #### Debian, Ubuntu
